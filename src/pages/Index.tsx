@@ -18,6 +18,7 @@ export default function Index() {
                 .why-card:hover { background-color: rgba(17,17,17,0.8); border-color: rgba(239,68,68,0.7); transform: translateY(-2px); }
                 .why-card:hover .card-icon { transform: scale(1.15); }
                 .card-icon { transition: all 0.3s ease; }
+                .offer-box { background: linear-gradient(135deg, rgba(220,38,38,0.12) 0%, rgba(17,17,17,0.98) 100%); border: 1px solid rgba(239,68,68,0.4); }
                 body { font-size: 16px; line-height: 1.6; }
             `}</style>
 
@@ -112,6 +113,44 @@ export default function Index() {
                 </div>
             </section>
 
+            {/* Opening Offer Feature Box */}
+            <section className="py-24 px-6" style={{ backgroundColor: '#1a1a1a' }}>
+                <div className="max-w-6xl mx-auto">
+                    <p className="text-red-500 text-sm tracking-widest uppercase mb-4">🎉 Summer Soft Launch</p>
+                    <div className="offer-box p-10 md:p-16">
+                        <div className="grid md:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <p className="text-red-500 text-sm tracking-widest uppercase mb-4">Opening Offer — July 2026</p>
+                                <h2 className="text-4xl md:text-5xl font-medium uppercase tracking-tight mb-6">
+                                    🎁 Bring A Friend<br />
+                                    <span className="red-glow-subtle">First Time Free</span>
+                                </h2>
+                                <p className="text-gray-300 text-base md:text-lg leading-relaxed mb-8">
+                                    Bring a mate, a parent, a teen — and their first YARD Circuits session is completely free. You pay £8. They train for free. No strings attached.
+                                </p>
+                                <Link to="/circuits" className="inline-block bg-red-600 hover:bg-red-700 text-white text-sm tracking-widest uppercase px-8 py-4 font-medium transition-all">
+                                    🔥 Claim This Offer
+                                </Link>
+                            </div>
+                            <div className="space-y-4">
+                                {[
+                                    { emoji: '🔥', text: 'Mon, Wed, Fri — 6:30am' },
+                                    { emoji: '💰', text: 'Just £8 per class — no contracts' },
+                                    { emoji: '👨‍👩‍👧', text: 'Parents, teens and all levels welcome' },
+                                    { emoji: '🏘️', text: 'Barnet, North London — easy parking' },
+                                    { emoji: '🎁', text: 'Bring a friend — their first session is FREE' },
+                                ].map((item) => (
+                                    <div key={item.text} className="flex items-center gap-4 text-gray-300 text-base">
+                                        <span className="text-2xl">{item.emoji}</span>
+                                        <span>{item.text}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Circuits CTA */}
             <section className="grid-bg py-24 px-6 text-center">
                 <div className="max-w-3xl mx-auto">
@@ -120,10 +159,10 @@ export default function Index() {
                         YARD <span className="red-glow-subtle">Circuits</span>
                     </h2>
                     <p className="text-gray-300 text-lg md:text-xl mb-10 leading-relaxed">
-                        HIIT. Combat. Football S&amp;C. Mon-Fri. No contracts. £8 per class.
+                        HIIT. Combat. Football S&amp;C. Mon, Wed, Fri. No contracts. £8 per class.
                     </p>
                     <Link to="/circuits" className="inline-block bg-red-600 hover:bg-red-700 text-white text-sm tracking-widest uppercase px-10 py-4 font-medium transition-all">
-                        Book Your Spot - £8
+                        Book Your Spot — £8
                     </Link>
                 </div>
             </section>

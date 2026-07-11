@@ -66,7 +66,7 @@ export default function Circuits() {
         },
         {
             q: 'What should I wear and bring?',
-            a: 'Comfortable training gear, a water bottle and a towel. Trainers are fine — no specialist footwear needed. We train outdoors in a converted garage so dress for the weather and bring layers in cooler months.'
+            a: 'Comfortable training gear, a water bottle and a towel. Trainers are fine. We train outdoors in a converted garage so dress for the weather and bring layers in cooler months.'
         },
         {
             q: 'Is it suitable for complete beginners?',
@@ -74,7 +74,7 @@ export default function Circuits() {
         },
         {
             q: 'Can my teenager train without me?',
-            a: 'Yes — teens are very welcome. Under 16s should have a parent or guardian sign a consent form first. Karl will send this when you book. The Bring A Friend offer is perfect for getting teens started alongside a parent.'
+            a: 'Yes. Teens are very welcome. Under 16s should have a parent or guardian sign a consent form first. Karl will send this when you book. The Bring A Friend offer is perfect for getting teens started alongside a parent.'
         },
         {
             q: 'What if I need to cancel?',
@@ -82,11 +82,11 @@ export default function Circuits() {
         },
         {
             q: 'Do you train in all weather?',
-            a: 'Yes — that is part of the YARD philosophy. The garage is partially covered so you are protected from the worst of it. Rain, wind and cold are all part of building real resilience. We only cancel in extreme conditions and will always give you advance notice.'
+            a: 'Yes. That is part of the YARD philosophy. The garage is partially covered so you are protected from the worst of it. Rain, wind and cold are all part of building real resilience. We only cancel in extreme conditions and will always give you advance notice.'
         },
         {
             q: 'What is the Bring A Friend offer exactly?',
-            a: 'Simple — you book and pay your £8. Your friend comes to their very first YARD Circuits session completely free. Just mention their name when you book. No catches, no hidden fees. Offer runs throughout July 2026.'
+            a: 'Simple. You book and pay your £8. Your friend comes to their very first YARD Circuits session completely free. Just mention their name when you book. No catches, no hidden fees. Offer runs throughout July 2026.'
         },
     ]
 
@@ -163,7 +163,7 @@ export default function Circuits() {
                             Pick Your Session
                         </a>
                         <a href="#contact" className="border border-gray-600 hover:border-red-600 text-gray-300 hover:text-white text-sm tracking-widest uppercase px-8 py-4 font-medium transition-all">
-                            Book Now — £8
+                            Book Now
                         </a>
                     </div>
                 </div>
@@ -257,7 +257,6 @@ export default function Circuits() {
                             </div>
                         ))}
                     </div>
-
                     {selectedSlot && (
                         <div className="mb-8 p-4 text-center" style={{ background: 'rgba(220,38,38,0.1)', border: '1px solid rgba(239,68,68,0.4)' }}>
                             <p className="text-white text-base">
@@ -266,7 +265,6 @@ export default function Circuits() {
                             <p className="text-gray-400 text-sm mt-1">Scroll down to complete your booking 👇</p>
                         </div>
                     )}
-
                     <div className="p-6 text-center mb-8" style={{ background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(239,68,68,0.3)' }}>
                         <p className="text-white text-base md:text-lg">
                             🎁 <span className="text-red-400 font-medium">Bring A Friend</span> — their first session is FREE when you book yours
@@ -292,17 +290,18 @@ export default function Circuits() {
                     <p className="text-red-400 text-base mb-12 leading-relaxed">
                         🎁 Bringing a friend? Just mention their name in the message box — their first session is free!
                     </p>
-
                     {selectedSlot && (
                         <div className="mb-6 p-4" style={{ background: 'rgba(220,38,38,0.1)', border: '1px solid rgba(239,68,68,0.4)' }}>
                             <p className="text-red-400 text-sm tracking-widest uppercase mb-1">Selected Session</p>
                             <p className="text-white text-base font-medium">{selectedSlot.day} {selectedSlot.time} — {selectedSlot.type}</p>
-                            <button onClick={() => { setSelectedSlot(null); setFormData(prev => ({ ...prev, message: '' })) }} className="text-gray-500 text-xs mt-2 hover:text-red-400 transition-colors">
+                            <button
+                                onClick={() => { setSelectedSlot(null); setFormData(prev => ({ ...prev, message: '' })) }}
+                                className="text-gray-500 text-xs mt-2 hover:text-red-400 transition-colors"
+                            >
                                 Clear selection
                             </button>
                         </div>
                     )}
-
                     <div className="space-y-4">
                         <input
                             type="text"
@@ -341,7 +340,7 @@ export default function Circuits() {
                             disabled={isSubmitting}
                             className="w-full bg-red-600 hover:bg-red-700 disabled:opacity-50 py-5 text-white text-sm tracking-widest uppercase font-medium transition-all"
                         >
-                            {isSubmitting ? '⏳ Sending...' : '🔥 Book My Spot — £8'}
+                            {isSubmitting ? '⏳ Sending...' : '🔥 Book My Spot - £8'}
                         </button>
                         {submitStatus === 'success' && (
                             <div className="border border-green-600 p-4 text-center">
@@ -350,7 +349,7 @@ export default function Circuits() {
                         )}
                         {submitStatus === 'error' && (
                             <div className="border border-red-800 p-4 text-center">
-                                <p className="text-red-400 text-base">❌ Something went wrong. Please try again or WhatsApp Karl on 07595 228772.</p>
+                                <p className="text-red-400 text-base">Something went wrong. Please try again or WhatsApp Karl on 07595 228772.</p>
                             </div>
                         )}
                     </div>
@@ -366,10 +365,7 @@ export default function Circuits() {
                     </h2>
                     <div className="space-y-3">
                         {faqs.map((faq, i) => (
-                            <div
-                                key={i}
-                                className={`faq-item ${openFaq === i ? 'open' : ''}`}
-                            >
+                            <div key={i} className={`faq-item ${openFaq === i ? 'open' : ''}`}>
                                 <button
                                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
                                     className="w-full flex items-center justify-between px-6 py-5 text-left"
@@ -389,7 +385,7 @@ export default function Circuits() {
                         ))}
                     </div>
                     <div className="mt-12 p-6 text-center" style={{ border: '1px solid rgba(153,27,27,0.3)' }}>
-                        <p className="text-gray-400 text-base mb-3">Still got questions? Karl is happy to chat.</p>
+                        <p className="text-gray-400 text-base mb-4">Still got questions? Karl is happy to chat.</p>
 
                         href="https://wa.me/447595228772"
                         target="_blank"

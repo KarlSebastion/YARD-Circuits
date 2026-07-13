@@ -44,19 +44,19 @@ export default function Circuits() {
     }
 
     const schedule = [
-        { day: 'Monday', times: ['7:30am', '1:00pm'], type: 'HIIT Circuits', emoji: '🔥' },
-        { day: 'Wednesday', times: ['7:30am', '1:00pm'], type: 'HIIT Circuits', emoji: '🔥' },
-        { day: 'Friday', times: ['7:30am', '1:00pm'], type: 'Combat Circuits', emoji: '🥊' },
+        { day: 'Monday', times: ['7:30am', '1:00pm'], type: 'HIIT Circuit', emoji: '🔥' },
+        { day: 'Wednesday', times: ['7:30am', '1:00pm'], type: 'Strength Circuit', emoji: '💪' },
+        { day: 'Friday', times: ['7:30am', '1:00pm'], type: 'HIIT Circuit', emoji: '🔥' },
     ]
 
     const faqs = [
-        { q: 'How do I pay?', a: 'For the summer soft launch, book via the form and Karl will send a SumUp payment link by WhatsApp or email. You can also pay cash on the day.' },
+        { q: 'How do I pay?', a: 'For the summer soft launch, book via the form and Karl will send a SumUp payment link by WhatsApp or email. You can also pay on the day.' },
         { q: 'What should I wear and bring?', a: 'Comfortable training gear, a water bottle and a towel. Trainers are fine. We train in a converted garage so dress for the weather.' },
         { q: 'Is it suitable for complete beginners?', a: 'Absolutely. YARD Circuits is designed for all levels. Karl scales every session so beginners work at their own pace while advanced athletes push harder.' },
         { q: 'Can my teenager train without me?', a: 'Yes. Teens are very welcome. Under 16s need a parent or guardian consent form first. Karl will send this when you book.' },
-        { q: 'What if I need to cancel?', a: 'Just let Karl know via WhatsApp on 07595 228772 and he will reschedule you or carry your credit forward. No penalties for the summer soft launch.' },
+        { q: 'What if I need to cancel?', a: 'Just let Karl know via WhatsApp on 07595228722 and he will reschedule you or carry your credit forward. No penalties for the summer soft launch.' },
         { q: 'Do you train in all weather?', a: 'Yes. The garage is partially covered. Rain, wind and cold are part of building real resilience. We only cancel in extreme conditions and always give advance notice.' },
-        { q: 'What is the Bring A Friend offer?', a: 'You book and pay your £8. Your friend comes to their very first YARD Circuits session completely free. Just mention their name when you book. Offer runs throughout July 2026.' },
+        { q: 'What is the Bring A Friend offer?', a: 'You book and pay your £8. Your friend comes to their very first YARD Circuits session completely free. Just mention their name when you book. No catches, no hidden fees. Offer runs throughout August 2026 — perfect timing with football preseason in full swing and Back to School just around the corner in September.' },
     ]
 
     return (
@@ -93,7 +93,7 @@ export default function Circuits() {
 
             <section className="offer-banner py-10 px-6 text-center">
                 <div className="max-w-4xl mx-auto">
-                    <p className="text-red-500 text-sm tracking-widest uppercase mb-3">Summer Soft Launch — July 2026</p>
+                    <p className="text-red-500 text-sm tracking-widest uppercase mb-3">Summer Soft Launch — August 2026</p>
                     <h2 className="text-3xl md:text-5xl font-medium uppercase tracking-tight mb-4">
                         Bring A Friend — <span className="red-glow-subtle">First Time Free</span>
                     </h2>
@@ -102,7 +102,7 @@ export default function Circuits() {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
                         <a href="#contact" className="bg-red-600 hover:bg-red-700 text-white text-sm tracking-widest uppercase px-8 py-3 font-medium transition-all">Claim This Offer</a>
-                        <span className="text-gray-500 text-sm tracking-widest uppercase">Limited Spaces — July Only</span>
+                        <span className="text-gray-500 text-sm tracking-widest uppercase">Limited Spaces — August Only</span>
                     </div>
                 </div>
             </section>
@@ -113,7 +113,7 @@ export default function Circuits() {
                     <h1 className="text-7xl md:text-9xl font-medium tracking-tight leading-none mb-4 uppercase">YARD</h1>
                     <h1 className="text-7xl md:text-9xl font-medium tracking-tight leading-none mb-12 uppercase red-glow">Circuits</h1>
                     <p className="text-gray-300 text-lg md:text-xl tracking-wide mb-12 max-w-xl mx-auto leading-relaxed">
-                        HIIT. Combat. Football S&amp;C. All levels welcome. No contracts. Just results.
+                        HIIT. Strength. Combat. All levels welcome. No contracts. Just results.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <a href="#schedule" className="bg-red-600 hover:bg-red-700 text-white text-sm tracking-widest uppercase px-8 py-4 font-medium transition-all">Pick Your Session</a>
@@ -129,7 +129,7 @@ export default function Circuits() {
                     <div className="grid md:grid-cols-3 gap-4">
                         {[
                             { Icon: Trophy, stat: '£8', label: 'Per Class', desc: 'Drop-in, no contracts, no commitment. Just show up and work.' },
-                            { Icon: Users, stat: 'All Levels', label: 'Welcome', desc: 'Parents, teens, beginners, athletes. Everyone pushes hard. Everyone gets results.' },
+                            { Icon: Users, stat: 'All Levels', label: 'Welcome', desc: 'Football mums, dads, teens, beginners, athletes. Everyone pushes hard. Everyone gets results.' },
                             { Icon: Zap, stat: 'Results', label: 'Guaranteed', desc: 'Real coaching. No fluff. Just work, sweat and transformation.' },
                         ].map((item) => (
                             <div key={item.stat} className="why-card p-8 md:p-10">
@@ -150,7 +150,7 @@ export default function Circuits() {
                     <div className="grid md:grid-cols-3 gap-4">
                         {[
                             { emoji: '🎁', title: 'First Time Free', desc: 'Bring anyone to their very first YARD Circuits session and they train completely free. No catch.' },
-                            { emoji: '👨‍👩‍👧', title: 'Parents + Teens', desc: 'Train together this summer. A shared challenge builds something special. All ages, all levels.' },
+                            { emoji: '👨‍👩‍👧', title: 'Parents + Teens', desc: 'Train together this summer. Perfect for football families getting preseason-ready before Back to School in September.' },
                             { emoji: '🏘️', title: 'Community First', desc: 'YARD is for Barnet. Spread the word locally and help build something real in your neighbourhood.' },
                         ].map((item) => (
                             <div key={item.title} className="why-card p-8 md:p-10">
@@ -167,7 +167,7 @@ export default function Circuits() {
                 <div className="max-w-4xl mx-auto">
                     <p className="text-red-500 text-sm tracking-widest uppercase mb-4">Summer 2026</p>
                     <h2 className="text-4xl md:text-6xl font-medium uppercase tracking-tight mb-4">Schedule</h2>
-                    <p className="text-gray-400 text-base md:text-lg mb-4 leading-relaxed">Two sessions daily — early morning or lunchtime. Mon, Wed, Fri throughout July and August.</p>
+                    <p className="text-gray-400 text-base md:text-lg mb-4 leading-relaxed">Two sessions daily — early morning or lunchtime. Mon, Wed, Fri throughout August.</p>
                     <p className="text-red-400 text-sm mb-12 tracking-wide">Tap a timeslot to pre-fill your booking form</p>
                     <div className="space-y-3 mb-8">
                         {schedule.map((s) => (
@@ -225,7 +225,7 @@ export default function Circuits() {
                         <input type="text" name="name" placeholder="Your Full Name *" value={formData.name} onChange={handleChange} className="form-input w-full px-5 py-4 text-white text-base" />
                         <input type="email" name="email" placeholder="Email Address *" value={formData.email} onChange={handleChange} className="form-input w-full px-5 py-4 text-white text-base" />
                         <input type="tel" name="phone" placeholder="Phone Number (optional)" value={formData.phone} onChange={handleChange} className="form-input w-full px-5 py-4 text-white text-base" />
-                        <textarea name="message" placeholder="Bringing a friend? Tell us their name here!" value={formData.message} onChange={handleChange} rows={4} className="form-input w-full px-5 py-4 text-white text-base resize-none" />
+                        <textarea name="message" placeholder="Bringing a friend? Tell us their name here! Any questions welcome." value={formData.message} onChange={handleChange} rows={4} className="form-input w-full px-5 py-4 text-white text-base resize-none" />
                         <button onClick={handleSubmit} disabled={isSubmitting} className="w-full bg-red-600 hover:bg-red-700 disabled:opacity-50 py-5 text-white text-sm tracking-widest uppercase font-medium transition-all">
                             {isSubmitting ? 'Sending...' : 'Book My Spot - £8'}
                         </button>
@@ -236,7 +236,7 @@ export default function Circuits() {
                         )}
                         {submitStatus === 'error' && (
                             <div className="border border-red-800 p-4 text-center">
-                                <p className="text-red-400 text-base">Something went wrong. Please try again or WhatsApp Karl on 07595 228772.</p>
+                                <p className="text-red-400 text-base">Something went wrong. Please try again or WhatsApp Karl on 07595228722.</p>
                             </div>
                         )}
                     </div>
@@ -264,7 +264,7 @@ export default function Circuits() {
                     </div>
                     <div className="mt-12 p-6 text-center" style={{ border: '1px solid rgba(153,27,27,0.3)' }}>
                         <p className="text-gray-400 text-base mb-4">Still got questions? Karl is happy to chat.</p>
-                        <a href="https://wa.me/447595228772" target="_blank" rel="noopener noreferrer" className="inline-block bg-red-600 hover:bg-red-700 text-white text-sm tracking-widest uppercase px-8 py-3 font-medium transition-all">
+                        <a href="https://wa.me/447595228722" target="_blank" rel="noopener noreferrer" className="inline-block bg-red-600 hover:bg-red-700 text-white text-sm tracking-widest uppercase px-8 py-3 font-medium transition-all">
                             WhatsApp Karl
                         </a>
                     </div>

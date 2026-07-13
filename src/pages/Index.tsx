@@ -1,17 +1,14 @@
 import { Link } from 'react-router-dom'
 import yardLogo from '../assets/YARD-Logo.png'
 import gymPhoto from '../assets/IMG_0151.jpg'
-import { Wind, Focus, Zap, MapPin } from 'lucide-react'
+import { Wind, Focus, Zap, MapPin, User } from 'lucide-react'
 
 export default function Index() {
     return (
         <div className="min-h-screen text-white" style={{ backgroundColor: '#111111', fontFamily: "'DM Mono', monospace" }}>
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
-                .grid-bg {
-                    background-image: linear-gradient(rgba(220,38,38,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(220,38,38,0.07) 1px, transparent 1px);
-                    background-size: 40px 40px;
-                }
+                .grid-bg { background-image: linear-gradient(rgba(220,38,38,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(220,38,38,0.07) 1px, transparent 1px); background-size: 40px 40px; }
                 .red-glow { color: #ef4444; text-shadow: 0 0 20px rgba(220,38,38,0.8), 0 0 40px rgba(220,38,38,0.4); }
                 .red-glow-subtle { color: #ef4444; text-shadow: 0 0 10px rgba(220,38,38,0.6), 0 0 20px rgba(220,38,38,0.3); }
                 .why-card { background-color: rgba(17,17,17,0.55); backdrop-filter: blur(6px); border: 1px solid rgba(153,27,27,0.4); transition: all 0.3s ease; }
@@ -19,6 +16,7 @@ export default function Index() {
                 .why-card:hover .card-icon { transform: scale(1.15); }
                 .card-icon { transition: all 0.3s ease; }
                 .offer-box { background: linear-gradient(135deg, rgba(220,38,38,0.12) 0%, rgba(17,17,17,0.98) 100%); border: 1px solid rgba(239,68,68,0.4); }
+                .pt-box { background: linear-gradient(135deg, rgba(17,17,17,0.98) 0%, rgba(220,38,38,0.08) 100%); border: 1px solid rgba(239,68,68,0.3); }
                 body { font-size: 16px; line-height: 1.6; }
             `}</style>
 
@@ -113,29 +111,30 @@ export default function Index() {
                 </div>
             </section>
 
-            {/* Opening Offer Feature Box */}
+            {/* Opening Offer — Bring A Friend */}
             <section className="py-24 px-6" style={{ backgroundColor: '#1a1a1a' }}>
                 <div className="max-w-6xl mx-auto">
-                    <p className="text-red-500 text-sm tracking-widest uppercase mb-4">🎉 Summer Soft Launch</p>
+                    <p className="text-red-500 text-sm tracking-widest uppercase mb-4">Summer Soft Launch</p>
                     <div className="offer-box p-10 md:p-16">
                         <div className="grid md:grid-cols-2 gap-12 items-center">
                             <div>
-                                <p className="text-red-500 text-sm tracking-widest uppercase mb-4">Opening Offer — July 2026</p>
+                                <p className="text-red-500 text-sm tracking-widest uppercase mb-4">Opening Offer — August 2026</p>
                                 <h2 className="text-4xl md:text-5xl font-medium uppercase tracking-tight mb-6">
-                                    🎁 Bring A Friend<br />
+                                    Bring A Friend<br />
                                     <span className="red-glow-subtle">First Time Free</span>
                                 </h2>
                                 <p className="text-gray-300 text-base md:text-lg leading-relaxed mb-8">
-                                    Bring a mate, a parent, a teen — and their first YARD Circuits session is completely free. You pay £8. They train for free. No strings attached.
+                                    Bring a mate, a parent, a teen — their first YARD Circuits session is completely free. You pay £8. They train for free. No strings attached.
                                 </p>
                                 <Link to="/circuits" className="inline-block bg-red-600 hover:bg-red-700 text-white text-sm tracking-widest uppercase px-8 py-4 font-medium transition-all">
-                                    🔥 Claim This Offer
+                                    Claim This Offer
                                 </Link>
                             </div>
                             <div className="space-y-4">
                                 {[
-                                    { emoji: '🔥', text: 'Mon, Wed, Fri — 6:30am' },
+                                    { emoji: '🔥', text: 'Mon, Wed, Fri — 7:30am and 1:00pm' },
                                     { emoji: '💰', text: 'Just £8 per class — no contracts' },
+                                    { emoji: '⚽', text: 'Perfect for football families this preseason' },
                                     { emoji: '👨‍👩‍👧', text: 'Parents, teens and all levels welcome' },
                                     { emoji: '🏘️', text: 'Barnet, North London — easy parking' },
                                     { emoji: '🎁', text: 'Bring a friend — their first session is FREE' },
@@ -151,18 +150,65 @@ export default function Index() {
                 </div>
             </section>
 
+            {/* PT 1-1 Free Consultation */}
+            <section className="py-24 px-6 grid-bg">
+                <div className="max-w-6xl mx-auto">
+                    <p className="text-red-500 text-sm tracking-widest uppercase mb-4">Personal Training</p>
+                    <div className="pt-box p-10 md:p-16">
+                        <div className="grid md:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <p className="text-red-500 text-sm tracking-widest uppercase mb-4">1-1 Coaching — Barnet</p>
+                                <h2 className="text-4xl md:text-5xl font-medium uppercase tracking-tight mb-6">
+                                    Free Goal<br />
+                                    <span className="red-glow-subtle">Consultation</span>
+                                </h2>
+                                <p className="text-gray-300 text-base md:text-lg leading-relaxed mb-8">
+                                    Not sure where to start? Book a free 1-1 consultation with Karl. No pressure, no commitment. Just an honest conversation about your goals, your lifestyle, and how to get you there.
+                                </p>
+                                <a href="https://wa.me/447595228722" target="_blank" rel="noopener noreferrer" className="inline-block bg-red-600 hover:bg-red-700 text-white text-sm tracking-widest uppercase px-8 py-4 font-medium transition-all">
+                                    Book Free Consultation
+                                </a>
+                            </div>
+                            <div className="space-y-6">
+                                <div className="flex items-start gap-4">
+                                    <User size={24} color="#ef4444" className="mt-1 flex-shrink-0" />
+                                    <div>
+                                        <p className="text-white text-sm tracking-widest uppercase mb-1">Tailored To You</p>
+                                        <p className="text-gray-400 text-base leading-relaxed">General fitness, weight loss, strength, football conditioning — whatever your goal, Karl builds a plan around your life.</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-4">
+                                    <Zap size={24} color="#ef4444" className="mt-1 flex-shrink-0" />
+                                    <div>
+                                        <p className="text-white text-sm tracking-widest uppercase mb-1">Real Results</p>
+                                        <p className="text-gray-400 text-base leading-relaxed">No fads. No gimmicks. Functional training that makes you stronger, fitter and more resilient in real life.</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-4">
+                                    <MapPin size={24} color="#ef4444" className="mt-1 flex-shrink-0" />
+                                    <div>
+                                        <p className="text-white text-sm tracking-widest uppercase mb-1">Barnet Based</p>
+                                        <p className="text-gray-400 text-base leading-relaxed">Train at The YARD in Barnet. Flexible scheduling to fit around work, family and the school run.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Circuits CTA */}
-            <section className="grid-bg py-24 px-6 text-center">
+            <section className="py-24 px-6 text-center" style={{ backgroundColor: '#1a1a1a' }}>
                 <div className="max-w-3xl mx-auto">
                     <p className="text-red-500 text-sm tracking-widest uppercase mb-4">Drop-In Classes</p>
                     <h2 className="text-4xl md:text-6xl font-medium uppercase tracking-tight mb-6">
                         YARD <span className="red-glow-subtle">Circuits</span>
                     </h2>
                     <p className="text-gray-300 text-lg md:text-xl mb-10 leading-relaxed">
-                        HIIT. Combat. Football S&amp;C. Mon, Wed, Fri. No contracts. £8 per class.
+                        HIIT. Strength. Combat. Mon, Wed, Fri. No contracts. £8 per class.
                     </p>
                     <Link to="/circuits" className="inline-block bg-red-600 hover:bg-red-700 text-white text-sm tracking-widest uppercase px-10 py-4 font-medium transition-all">
-                        Book Your Spot — £8
+                        Book Your Spot
                     </Link>
                 </div>
             </section>

@@ -1,168 +1,173 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../supabase';
-import { CircuitCard } from '../components/CircuitCard';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
 
 export default function Circuits() {
-    const [loading, setLoading] = useState(false);
-    const [circuit, setCircuit] = useState<any>(null);
-    const [savedCircuits, setSavedCircuits] = useState<any[]>([]);
+    const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' })
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-    // Form State
-    const [ageGroup, setAgeGroup] = useState('U12');
-    const [nasmPhase, setNasmPhase] = useState('phase_1_stabilization');
-    const [focus, setFocus] = useState('eccentric deceleration, dynamic core balance, rapid directional shifts');
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
 
-    // Fetch past circuits on page load
-    useEffect(() => {
-        fetchHistory();
-    }, []);
-
-    const fetchHistory = async () => {
-        const { data } = await supabase
-            .from('workout_circuits')
-            .select('*')
-            .order('created_at', { ascending: false })
-            .limit(5);
-
-        if (data) setSavedCircuits(data);
-    };
-
-    const generateCircuit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        try {
-            // Extract active session token or fall back to client key dynamically
-            const { data: sessionData } = await supabase.auth.getSession();
-            const clientKey = (supabase as any).supabaseKey ||
-                (supabase as any).rest?.headers?.apikey ||
-                (supabase as any).headers?.apikey || '';
-
-            const authToken = sessionData?.session?.access_token || clientKey;
-
-            const res = await fetch('https://jwipcfbgphdpziixrjyb.supabase.co/functions/v1/generate-circuit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authToken}`
-                },
-                body: JSON.stringify({
-                    prompt: `Generate a 12-minute ${ageGroup} session focusing on ${focus}.`,
-                    ageGroup,
-                    nasmPhase
-                })
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                throw new Error(data.error || `HTTP ${res.status}`);
-            }
-
-            const activeCircuit = data?.circuit || data?.data?.circuit_data || data?.data;
-
-            if (activeCircuit) {
-                setCircuit(activeCircuit);
-                fetchHistory(); // Refresh history list
-            } else {
-                throw new Error('Response received but no circuit payload found');
-            }
-        } catch (err: any) {
-            console.error('Generation Error:', err);
-            alert(`Failed to generate circuit: ${err.message || err}`);
-        } finally {
-            setLoading(false);
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!formData.name.trim() || !formData.email.trim()) {
+            alert('Please fill in name and email.')
+            return
         }
-    };
+
+        setIsSubmitting(true)
+        setSubmitStatus('idle')
+
+        try {
+            // Save to Supabase
+            const { error } = await supabase.from('circuits_bookings').insert([{
+                name: formData.name.trim(),
+                email: formData.email.trim(),
+                phone: formData.phone.trim() || null,
+                message: formData.message.trim() || null,
+            }])
+
+            if (error) throw error
+
+            setSubmitStatus('success')
+            setFormData({ name: '', email: '', phone: '', message: '' })
+            setTimeout(() => setSubmitStatus('idle'), 3000)
+        } catch (error) {
+            console.error('Error:', error)
+            setSubmitStatus('error')
+            setTimeout(() => setSubmitStatus('idle'), 3000)
+        } finally {
+            setIsSubmitting(false)
+        }
+    }
 
     return (
-        <main className="min-h-screen bg-black text-white p-6 font-mono flex flex-col items-center">
-            <div className="max-w-4xl w-full text-center mb-10">
-                <h1 className="text-4xl font-extrabold uppercase tracking-widest text-white drop-shadow-[0_0_10px_rgba(255,0,0,0.8)]">
-                    YARD <span className="text-[#FF0000]">CIRCUITS</span> ENGINE
-                </h1>
-                <p className="text-gray-400 text-xs mt-2 uppercase">Automated S&C Generation for Youth Athletes</p>
-            </div>
-
-            {/* Generation Controls */}
-            <form onSubmit={generateCircuit} className="max-w-4xl w-full bg-[#111111] border border-[#222222] p-6 mb-10 rounded">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label className="block text-xs uppercase text-gray-400 mb-1">Target Age Group</label>
-                        <select
-                            value={ageGroup}
-                            onChange={(e) => setAgeGroup(e.target.value)}
-                            className="w-full bg-black border border-[#333] text-white p-2 text-sm rounded focus:border-[#FF0000] outline-none"
-                        >
-                            <option value="U10">U10</option>
-                            <option value="U12">U12</option>
-                            <option value="U14">U14</option>
-                            <option value="U16">U16</option>
-                            <option value="Senior">Senior</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label className="block text-xs uppercase text-gray-400 mb-1">NASM Phase</label>
-                        <select
-                            value={nasmPhase}
-                            onChange={(e) => setNasmPhase(e.target.value)}
-                            className="w-full bg-black border border-[#333] text-white p-2 text-sm rounded focus:border-[#FF0000] outline-none"
-                        >
-                            <option value="phase_1_stabilization">Phase 1: Stabilization Endurance</option>
-                            <option value="phase_2_strength_endurance">Phase 2: Strength Endurance</option>
-                            <option value="phase_3_power">Phase 3: Power</option>
-                        </select>
+        <div className="min-h-screen bg-black text-white">
+            {/* Nav */}
+            <nav className="sticky top-0 z-50 bg-black border-b border-red-600">
+                <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                    <Link to="/" className="font-black text-xl hover:text-red-600">YARD</Link>
+                    <div className="flex items-center gap-6">
+                        <p className="text-red-600 font-black">£8 per class</p>
+                        <a href="#contact" className="text-red-600 hover:text-red-500 font-bold">Book</a>
                     </div>
                 </div>
+            </nav>
 
-                <div className="mb-6">
-                    <label className="block text-xs uppercase text-gray-400 mb-1">Session Focus & Constraints</label>
-                    <input
-                        type="text"
-                        value={focus}
-                        onChange={(e) => setFocus(e.target.value)}
-                        className="w-full bg-black border border-[#333] text-white p-2 text-sm rounded focus:border-[#FF0000] outline-none"
-                        placeholder="e.g. Lateral speed, partner relays, bodyweight only"
-                    />
+            {/* Hero */}
+            <section className="py-32 px-6 text-center">
+                <div className="max-w-3xl mx-auto">
+                    <h1 className="text-6xl md:text-7xl font-black mb-6">
+                        YARD<br /><span className="text-red-600">CIRCUITS</span>
+                    </h1>
+                    <p className="text-gray-400 text-lg mb-8">
+                        Drop-in bootcamp. HIIT. Combat. Football S&C. All levels. £8 per class.
+                    </p>
                 </div>
+            </section>
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full bg-[#FF0000] text-white py-3 font-bold uppercase tracking-wider border border-[#FF0000] hover:bg-black hover:text-[#FF0000] transition-all disabled:opacity-50 cursor-pointer"
-                >
-                    {loading ? 'BUILDING S&C CIRCUIT...' : 'GENERATE AI CIRCUIT'}
-                </button>
-            </form>
-
-            {/* Generated Active Circuit */}
-            {circuit && (
-                <div className="max-w-4xl w-full mb-12">
-                    <CircuitCard circuit={circuit} />
-                </div>
-            )}
-
-            {/* Recent Circuits History */}
-            {savedCircuits.length > 0 && (
-                <div className="max-w-4xl w-full bg-[#0A0A0A] border border-[#222] p-6 rounded">
-                    <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">Recent Database Logs</h2>
+            {/* Schedule */}
+            <section className="py-20 px-6 bg-gray-950 border-t border-red-600">
+                <div className="max-w-4xl mx-auto">
+                    <h2 className="text-4xl font-black mb-12">Schedule</h2>
                     <div className="space-y-3">
-                        {savedCircuits.map((item) => (
-                            <div
-                                key={item.id}
-                                onClick={() => setCircuit(item.circuit_data)}
-                                className="flex justify-between items-center bg-[#111] p-3 border border-[#222] hover:border-[#FF0000] cursor-pointer transition-all"
-                            >
-                                <div>
-                                    <div className="text-white text-sm font-bold">{item.title || 'Untitled Circuit'}</div>
-                                    <div className="text-xs text-gray-500 uppercase">{item.target_age_group} • {item.nasm_phase}</div>
+                        {[
+                            { day: 'Monday', time: '11:30–13:30' },
+                            { day: 'Tuesday', time: '6:30–8:30 AM / 11:30–13:30 / 18:00–20:00' },
+                            { day: 'Wednesday', time: '11:30–13:30' },
+                            { day: 'Thursday', time: '6:30–8:30 AM / 11:30–13:30 / 18:00–20:00' },
+                            { day: 'Friday', time: '11:30–13:30' },
+                        ].map((slot, i) => (
+                            <div key={i} className="border border-red-600 p-6 hover:bg-gray-900 transition-colors">
+                                <div className="flex justify-between items-center">
+                                    <p className="font-black text-lg">{slot.day}</p>
+                                    <p className="text-red-600 font-bold">{slot.time}</p>
                                 </div>
-                                <div className="text-xs text-[#FF0000] uppercase font-bold">Load Session →</div>
                             </div>
                         ))}
                     </div>
                 </div>
-            )}
-        </main>
-    );
+            </section>
+
+            {/* Contact Form */}
+            <section id="contact" className="py-20 px-6 border-t border-red-600">
+                <div className="max-w-2xl mx-auto">
+                    <h2 className="text-4xl font-black mb-12 text-center">
+                        Book Your<br /><span className="text-red-600">First Class</span>
+                    </h2>
+
+                    {submitStatus === 'success' && (
+                        <div className="mb-6 p-4 bg-green-600/10 border border-green-600 text-green-400 rounded">
+                            ✓ Booked! Check your email. See you soon.
+                        </div>
+                    )}
+                    {submitStatus === 'error' && (
+                        <div className="mb-6 p-4 bg-red-600/10 border border-red-600 text-red-400 rounded">
+                            ✗ Error. Try WhatsApp instead.
+                        </div>
+                    )}
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Your name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-gray-950 border border-red-600 text-white placeholder-gray-600 focus:outline-none"
+                        />
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="your@email.com"
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-gray-950 border border-red-600 text-white placeholder-gray-600 focus:outline-none"
+                        />
+                        <input
+                            type="tel"
+                            name="phone"
+                            placeholder="07XXX XXX XXX"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-gray-950 border border-red-600 text-white placeholder-gray-600 focus:outline-none"
+                        />
+                        <textarea
+                            name="message"
+                            placeholder="Any questions or injuries we should know?"
+                            rows={3}
+                            value={formData.message}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-gray-950 border border-red-600 text-white placeholder-gray-600 focus:outline-none resize-none"
+                        />
+                        <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="w-full bg-red-600 hover:bg-red-700 disabled:opacity-50 px-8 py-4 font-black transition-all"
+                        >
+                            {isSubmitting ? 'BOOKING...' : 'BOOK NOW'}
+                        </button>
+                    </form>
+
+                    <div className="mt-12 space-y-4 text-center">
+                        <p className="text-gray-400">Or reach out directly:</p>
+                        <a href="https://wa.me/447595228722" className="block text-red-600 hover:text-red-500 font-bold">
+                            💬 WhatsApp: 07595 228722
+                        </a>
+                        <a href="mailto:info@yardtraining.co.uk" className="block text-red-600 hover:text-red-500 font-bold">
+                            📧 Email: info@yardtraining.co.uk
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            {/* Footer */}
+            <footer className="py-8 px-6 border-t border-red-600 text-center text-gray-500 text-sm">
+                <p>© {new Date().getFullYear()} YARD Training. Barnet, North London.</p>
+            </footer>
+        </div>
+    )
 }
